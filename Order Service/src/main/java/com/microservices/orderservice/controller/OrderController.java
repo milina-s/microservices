@@ -35,4 +35,9 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
+    @PostMapping
+    public void addOrder() {
+
+    }
+
 }
