@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/api/warehouse")
 public class WarehouseController {
     @Autowired
     WareService wareService;
+    private boolean isPaused = false;
 
     @GetMapping()
     public ResponseEntity<List<Ware>> getAllWares () {
@@ -23,8 +25,16 @@ public class WarehouseController {
     }
 
     @GetMapping("get/{id}")
-    public ResponseEntity<Ware> getAllWares (@PathVariable String id) {
-        return ResponseEntity.ok (wareService.getAllWares ().get (Integer.parseInt(id)));
+    public ResponseEntity<Ware> getWare (@PathVariable long id) throws InterruptedException  {
+        if (isPaused) {
+            Thread.sleep (10000);
+        }
+        return ResponseEntity.ok(wareService.getWareById(id));
+    }
+
+    @PostMapping("pause")
+    public void pause() {
+        isPaused = !isPaused;
     }
 
     @DeleteMapping("delete/{id}")
