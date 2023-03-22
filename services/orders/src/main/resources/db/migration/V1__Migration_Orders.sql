@@ -2,10 +2,10 @@ CREATE SCHEMA IF NOT EXISTS orders;
 
 CREATE TABLE IF NOT EXISTS orders.order
 (
-    id INT NOT NULL,
+    id SERIAL,
     client_id INT,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS orders.order_item_id
 (
